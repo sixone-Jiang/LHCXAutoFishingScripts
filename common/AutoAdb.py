@@ -8,10 +8,10 @@ from common.Location import Location
 from common.Timer import Timer
 
 class AutoAdb:
-    threshold = 0.8
+    threshold = 0.85
     wait_time = 1
     screen_pic_path = PathUtils.get_cache_dir() + '/screen.png'
-
+    
     def __init__(self, test_device=False):
         self.adb_path = PathUtils.get_work_dir() + '/adb/adb.exe'
         if test_device:
