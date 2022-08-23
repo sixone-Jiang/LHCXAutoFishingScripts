@@ -38,6 +38,7 @@ def run(baits_list=baits_list):
         mumu_left, mumu_top, click_x_origin, click_y_origin = mumu_loc[0], mumu_loc[1],mumu_loc[2], mumu_loc[3]
         print(mumu_loc)
     for i in range(times):
+        print('第%d轮钓鱼:',i)
         adb.click(work_dir + '/temp_images/fish.png')
         time.sleep(3)
         StartFish.choice_rod_bait(baits_list,work_dir + '/temp_images/baits/', adb=adb)
@@ -46,6 +47,7 @@ def run(baits_list=baits_list):
         time.sleep(5)
         now = time.time()
         ring_flag = now 
+
         while time.time() - now <60*5:
             StartFish.window_capture(filename=work_dir+'/temp_images/screen_fish.jpg',mumu_left=mumu_left,mumu_top=mumu_top)
             x, y = StartFish.get_position(image_path=work_dir+'/temp_images/screen_fish.jpg')
@@ -57,13 +59,15 @@ def run(baits_list=baits_list):
                 if StartFish.is_new_fish(work_dir+'/temp_images/new_fish/'):
                     new_fish_stop -= 1
                     print("已经捕捉到新鱼")
-                else :print("捕捉到的不是新鱼")
+                else :
+                    #print("捕捉到的不是新鱼")
+                    pass
                 if new_fish_stop == 0:
                     return None
             # 若超时计时器超时，则立即进入下一轮钓鱼
             if time.time() - ring_flag >9:
                 break
-        
+        print('—————————本轮结束————————')
         
         ending_loc = Location(adb, None, 600, 600)
         ending_loc.click()

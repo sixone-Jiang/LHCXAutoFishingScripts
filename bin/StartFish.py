@@ -166,7 +166,7 @@ class StartFish:
             return time.time()
         else:
             pyautogui.mouseUp(x=click_x_origin, y=click_y_origin, button='left')
-            print('向左运动')
+            #print('向左运动')
             return ring_flag
         '''
         if region < fish -400:
