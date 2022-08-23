@@ -1,4 +1,4 @@
-opencv_python==4.5.5.64 
-PyAutoGUI==0.9.53 
-pywin32==304
+opencv_python
+PyAutoGUI
+pywin32
 win32gui
