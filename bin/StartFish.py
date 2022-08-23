@@ -28,9 +28,9 @@ def find_window_by_title(title):
         f(ctypes.wintypes.HWND(hwnd), ctypes.wintypes.DWORD(9), ctypes.byref(rect), ctypes.sizeof(rect))
         return rect.left, rect.top, rect.right, rect.bottom
 
-def get_location_with_no_sc(temp_rel_path_list, threshold=0.7):
+def get_location_with_no_sc(temp_rel_path_list, work_dir, threshold=0.7):
         
-        sp_gray = cv2.imread('d:/learn/lhcx/temp_images/screen_fish_2.jpg', cv2.COLOR_BGR2BGRA)
+        sp_gray = cv2.imread(work_dir+'/temp_images/screen_fish_2.jpg', cv2.COLOR_BGR2BGRA)
 
         if temp_rel_path_list:
             temp_abs_path = temp_rel_path_list
@@ -83,12 +83,12 @@ class StartFish:
             return False
 
     # 判断新鱼
-    def is_new_fish(image_path):
+    def is_new_fish(image_path, work_dir):
         fish_list = os.listdir(image_path)
         #adb.screen_cap()
         if fish_list:
             for fish in fish_list:
-                if get_location_with_no_sc(image_path+fish):
+                if get_location_with_no_sc(image_path+fish, work_dir):
                     return True
             return False
         else :

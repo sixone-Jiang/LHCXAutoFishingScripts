@@ -38,7 +38,7 @@ def run(baits_list=baits_list):
         mumu_left, mumu_top, click_x_origin, click_y_origin = mumu_loc[0], mumu_loc[1],mumu_loc[2], mumu_loc[3]
         print(mumu_loc)
     for i in range(times):
-        print('第%d轮钓鱼:',i)
+        print('第{%d}轮钓鱼开始'%i)
         adb.click(work_dir + '/temp_images/fish.png')
         time.sleep(3)
         StartFish.choice_rod_bait(baits_list,work_dir + '/temp_images/baits/', adb=adb)
@@ -56,7 +56,7 @@ def run(baits_list=baits_list):
             if new_fish_stop > 0:
                 # 该参数如果异常请自行测定
                 StartFish.window_capture(filename=work_dir+'/temp_images/screen_fish_2.jpg',mumu_left=mumu_left+500-320,mumu_top=mumu_top+593-204-30, mumu_width=160+40+120, mumu_h=40+60)
-                if StartFish.is_new_fish(work_dir+'/temp_images/new_fish/'):
+                if StartFish.is_new_fish(work_dir+'/temp_images/new_fish/', work_dir):
                     new_fish_stop -= 1
                     print("已经捕捉到新鱼")
                 else :
