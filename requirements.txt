@@ -1,4 +1,3 @@
 opencv_python
 PyAutoGUI
 pywin32
-win32gui
