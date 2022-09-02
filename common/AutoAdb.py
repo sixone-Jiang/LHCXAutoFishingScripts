@@ -8,7 +8,7 @@ from common.Location import Location
 from common.Timer import Timer
 
 class AutoAdb:
-    threshold = 0.85
+    threshold = 0.82
     wait_time = 1
     screen_pic_path = PathUtils.get_cache_dir() + '/screen.png'
     
@@ -44,6 +44,21 @@ class AutoAdb:
             y = max_loc[1] + h / 2
             return Location(self, temp_rel_path_list, x, y)
         return None
+    
+    def get_imread_from_screen(self):
+        pre_gray = cv2.imread(self.screen_pic_path, cv2.COLOR_BGR2BGRA)
+        return pre_gray
+
+    def compare_pre_with_now(self, pre_gray, threshold=threshold):
+        self.screen_cap()
+        sp_gray = cv2.imread(self.screen_pic_path, cv2.COLOR_BGR2BGRA)
+
+        res = cv2.matchTemplate(sp_gray, pre_gray, cv2.TM_CCOEFF_NORMED)
+        _, max_val, _, max_loc = cv2.minMaxLoc(res)
+        if max_val > threshold:
+            return True
+        else :
+            return False
 
     def check(self, temp_rel_path_list, threshold=threshold):
         loc = self.get_location(temp_rel_path_list, threshold=threshold)

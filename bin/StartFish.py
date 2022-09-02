@@ -5,6 +5,7 @@ import pyautogui
 import ctypes
 from common import ConfigUtils
 import os
+import time
 
 # 找mumu窗口 - 该方法在windows7以上电脑会定位不准
 def find_window_by_title_outDate(title):
@@ -44,7 +45,6 @@ def get_location_with_no_sc(temp_rel_path_list, work_dir, threshold=0.7):
             return True
 
         return False
-
 
 class StartFish:
     base_rate = 1.0
@@ -154,8 +154,21 @@ class StartFish:
                 white_index = index
         
         return red_green_index+region/2+10, white_index+fish/2
-
     def Stage(region, fish, ring_flag, click_x_origin, click_y_origin, duration_rate=base_rate):
+        #currentMouseX, currentMouseY = pyautogui.position() # 鼠标当前位置
+        pyautogui.moveTo(click_x_origin, click_y_origin, duration=0.001)
+        #print(currentMouseX, currentMouseY)
+        # 长点屏幕
+        # 可以新增增量算法进行优化
+        if region < fish:
+            pyautogui.mouseDown(x=click_x_origin, y=click_y_origin, button='left')
+            return time.time()
+        else:
+            pyautogui.mouseUp(x=click_x_origin, y=click_y_origin, button='left')
+            #print('向左运动')
+            return ring_flag
+
+    def Stage_pre(region, fish, ring_flag, click_x_origin, click_y_origin, duration_rate=base_rate):
         #currentMouseX, currentMouseY = pyautogui.position() # 鼠标当前位置
         pyautogui.moveTo(click_x_origin, click_y_origin, duration=0.001)
         #print(currentMouseX, currentMouseY)
